@@ -26,6 +26,7 @@
   },
   "devDependencies": {
     "@kurly/prettier-config": "^0.0.0",
+    "encoding": "^0.1.13",
     "prettier": "^2.8.8"
   },
   "prettier": "@kurly/prettier-config"
