@@ -7,9 +7,6 @@ import CONFIGS from '@/configs';
 const { API_KEY, TEAM_CALENDAR_ID } = CONFIGS;
 
 export async function GET() {
-  console.log('api route');
-  return NextResponse.json('ok');
-  /*
   const calendar = google.calendar({
     version: 'v3',
     auth: API_KEY,
@@ -24,5 +21,5 @@ export async function GET() {
   const events = res.data.items;
   console.log(events);
   return NextResponse.json('ok');
-   */
+  return NextResponse.json('ok');
 }
