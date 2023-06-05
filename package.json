@@ -9,14 +9,19 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@google-cloud/local-auth": "^2.1.1",
+    "@fxts/core": "^0.15.1",
     "@types/node": "20.2.5",
     "@types/react": "18.2.8",
     "@types/react-dom": "18.2.4",
     "autoprefixer": "10.4.14",
+    "axios": "^1.4.0",
+    "dayjs": "^1.11.8",
     "eslint": "8.42.0",
     "eslint-config-next": "13.4.4",
-    "googleapis": "^118.0.0",
+    "jsonwebtoken": "^9.0.0",
+    "lodash-es": "^4.17.21",
+    "mermaid": "^10.2.2",
+    "nanoid": "^4.0.2",
     "next": "13.4.4",
     "postcss": "8.4.24",
     "react": "18.2.0",
@@ -26,6 +31,8 @@
   },
   "devDependencies": {
     "@kurly/prettier-config": "^0.0.0",
+    "@types/jsonwebtoken": "^9.0.2",
+    "@types/lodash-es": "^4.17.7",
     "encoding": "^0.1.13",
     "prettier": "^2.8.8"
   },

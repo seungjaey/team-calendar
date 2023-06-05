@@ -1,25 +1,22 @@
-import { NextResponse } from 'next/server';
+import { createPreSignedToken } from '@/modules/google/createSignedToken';
+import { getVerifiedToken } from '@/modules/google/getVerifiedToken';
+import { getCalendarEventList } from '@/modules/google/getCalendarEventList';
+import { getTimezoneDate, getTimeRemovedDate } from '@/modules/date';
+import { createGanttChartText } from '@/modules/mermaid/createGanttChartText';
+import { CALENDAR_ID, API_KEY } from '@/configs';
 
-import { google } from 'googleapis';
-
-import CONFIGS from '@/configs';
-
-const { API_KEY, TEAM_CALENDAR_ID } = CONFIGS;
-
-export async function GET() {
-  const calendar = google.calendar({
-    version: 'v3',
-    auth: API_KEY,
+export const GET = async () => {
+  const startDate = getTimeRemovedDate(getTimezoneDate(Date.now()));
+  const endDate = startDate.add(7, 'day');
+  const preSignedToken = createPreSignedToken();
+  const { access_token } = await getVerifiedToken(preSignedToken);
+  const calendarEventListResponse = await getCalendarEventList({
+    calendarId: CALENDAR_ID,
+    apiKey: API_KEY,
+    accessToken: access_token,
+    timeMin: startDate.toISOString(),
+    timeMax: endDate.toISOString(),
   });
-  const res = await calendar.events.list({
-    calendarId: TEAM_CALENDAR_ID,
-    timeMin: new Date().toISOString(),
-    maxResults: 10,
-    singleEvents: true,
-    orderBy: 'startTime',
-  });
-  const events = res.data.items;
-  console.log(events);
-  return NextResponse.json('ok');
-  return NextResponse.json('ok');
-}
+  const ganttChartText = createGanttChartText(startDate, endDate, calendarEventListResponse);
+  return new Response(ganttChartText);
+};
